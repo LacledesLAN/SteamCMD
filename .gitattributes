@@ -1,4 +1,4 @@
 /*.md eol=lf
 /.dockerignore eol=lf
 /Dockerfile.linux eol=lf
-/Dockerfile.windows eol=lf
+/Dockerfile.windows eol=crlf

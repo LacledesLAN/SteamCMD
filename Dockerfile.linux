@@ -1,9 +1,12 @@
 FROM ubuntu:latest
 
+MAINTAINER Laclede's LAN <contact@lacledeslan.com>
+
 EXPOSE 4380/udp \
 		27000-27030/udp
 
 ENV DEBIAN_FRONTEND noninteractive \
+	SERVER_NAME="gamesvr:srcds.linux" \
 	STEAM_USERNAME="anyonomous" \
 	STEAM_PASSWORD=""
 
