@@ -25,7 +25,7 @@ RUN # Create directory for SteamCMD &&\
 		rm -f steamcmd_linux.tar.gz &&\
 	# Prevent steamclient.so warnings &&\
 		mkdir /root/.steam &&\
-		ln -s /steamcmd/linux32 /root/.steam/sdk32
+		ln -s /steamcmd/linux32 /root/.steam/sdk32 &&\
 	# Run SteamCMD so that it updates itself &&\
 		/app/steamcmd/steamcmd.sh +quit
 
