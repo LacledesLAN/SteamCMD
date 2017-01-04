@@ -33,3 +33,5 @@ RUN mkdir /app/steamcmd --parents &&\
 COPY ./dist/ /app/*
 
 CMD ["/bin/bash"]
+
+WORKDIR /app/
