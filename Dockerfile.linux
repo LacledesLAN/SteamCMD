@@ -17,10 +17,10 @@ RUN apt-get update && apt-get install -y \
 
 # SteamCMD
 RUN # Create directory for SteamCMD &&\
-		mkdir /app/steamcmd -p &&\
-		chmod 775 /app/steamcmd &&\
+		mkdir /app/steamcmd/ -p &&\
+		chmod 775 /app/steamcmd/ &&\
 	# Download and extract SteamCMD && \
-		cd /app/steamcmd &&\
+		cd /app/steamcmd/ &&\
 		curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -vxz &&\
 		rm -f steamcmd_linux.tar.gz &&\
 	# Prevent steamclient.so warnings &&\
