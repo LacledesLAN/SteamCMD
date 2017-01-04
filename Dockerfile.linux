@@ -27,7 +27,7 @@ RUN # Create directory for SteamCMD &&\
 		mkdir /root/.steam &&\
 		ln -s /steamcmd/linux32 /root/.steam/sdk32
 	# Run SteamCMD so that it updates itself &&\
-		/app/steamcmd/steamcmd.sh +quit &&\
+		/app/steamcmd/steamcmd.sh +quit
 
 COPY ./dist/ /app/
 
