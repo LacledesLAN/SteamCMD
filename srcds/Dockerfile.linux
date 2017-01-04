@@ -33,8 +33,6 @@ RUN mkdir /app/steamcmd --parents &&\
 	# Set permissions &&\
 		chmod -R 755 /app/steamcmd
 
-COPY ./dist/ /app/*
-
 CMD ["/bin/bash"]
 
 WORKDIR /app/
