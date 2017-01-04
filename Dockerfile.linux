@@ -1,0 +1,36 @@
+FROM ubuntu:latest
+
+EXPOSE 4380/udp \
+		27000-27030/udp
+
+ENV DEBIAN_FRONTEND noninteractive \
+	STEAM_USERNAME="anyonomous" \
+	STEAM_PASSWORD=""
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+		curl \
+		lib32gcc1 \
+		lib32tinfo5 &&\
+	apt-get autoclean &&\
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# SteamCMD
+RUN # Create directory for SteamCMD &&\
+		mkdir /app/steamcmd -p &&\
+		chmod 775 /app/steamcmd &&\
+	# Download and extract SteamCMD && \
+		cd /app/steamcmd &&\
+		curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -vxz &&\
+		rm -f steamcmd_linux.tar.gz &&\
+	# Prevent steamclient.so warnings &&\
+		mkdir /root/.steam &&\
+		ln -s /steamcmd/linux32 /root/.steam/sdk32
+	# Run SteamCMD so that it updates itself &&\
+		/app/steamcmd/steamcmd.sh +quit &&\
+
+COPY ./dist/ /app/
+
+WORKDIR /app/
+
+CMD ["/bin/bash"]
