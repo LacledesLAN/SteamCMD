@@ -27,8 +27,7 @@ RUN # Create directory for SteamCMD &&\
 		/app/steamcmd/steamcmd.sh +quit &&\
 	# Prevent steamclient.so warnings &&\
 		mkdir /root/.steam &&\
-		ln -s /steamcmd/linux32 /root/.steam/sdk32
-
+		ln -s /app/steamcmd/linux32 /root/.steam/sdk32
 
 COPY ./dist/ /app/
 
