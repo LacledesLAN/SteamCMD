@@ -2,6 +2,8 @@ FROM ubuntu:latest
 
 MAINTAINER Laclede's LAN <contact@lacledeslan.com>
 
+ENV IMAGE="gamesvr-srcds:linux"
+
 EXPOSE 4380/udp \
 		27000-27030/udp
 
