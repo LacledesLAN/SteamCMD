@@ -18,7 +18,8 @@ ENV DEBIAN_FRONTEND noninteractive `
 RUN apt-get update && apt-get install -y `
 		curl `
 		lib32gcc1 `
-		lib32tinfo5 &&`
+		lib32tinfo5 `
+		wget &&`
 	apt-get autoclean &&`
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
