@@ -1,38 +1,40 @@
+# escape=`
+
 FROM ubuntu:latest
 
 MAINTAINER Laclede's LAN <contact@lacledeslan.com>
 
 ENV IMAGE="gamesvr-srcds:linux"
 
-EXPOSE 4380/udp \
+EXPOSE 4380/udp `
 		27000-27030/udp
 
-ENV DEBIAN_FRONTEND noninteractive \
-	IMAGE="lacledeslan/gamesvr:srcds.linux" \
-	STEAM_USERNAME="anyonomous" \
+ENV DEBIAN_FRONTEND noninteractive `
+	IMAGE="lacledeslan/gamesvr:srcds.linux" `
+	STEAM_USERNAME="anyonomous" `
 	STEAM_PASSWORD=""
 
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-		curl \
-		lib32gcc1 \
-		lib32tinfo5 &&\
-	apt-get autoclean &&\
+RUN apt-get update && apt-get install -y `
+		curl `
+		lib32gcc1 `
+		lib32tinfo5 &&`
+	apt-get autoclean &&`
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # SteamCMD
-RUN mkdir /app/steamcmd --parents &&\
-	# Download and extract && \
-		cd /app/steamcmd &&\
-		curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -vxz &&\
-		rm -f steamcmd_linux.tar.gz &&\
-	# Run SteamCMD so that it updates itself &&\
-		chmod +x /app/steamcmd/*.sh &&\
-		/app/steamcmd/steamcmd.sh +quit &&\
-	# Prevent steamclient.so warnings &&\
-		mkdir /root/.steam &&\
-		ln -s /app/steamcmd/linux32 /root/.steam/sdk32 &&\
-	# Set permissions &&\
+RUN mkdir /app/steamcmd --parents &&`
+	# Download and extract && `
+		cd /app/steamcmd &&`
+		curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -vxz &&`
+		rm -f steamcmd_linux.tar.gz &&`
+	# Run SteamCMD so that it updates itself &&`
+		chmod +x /app/steamcmd/*.sh &&`
+		/app/steamcmd/steamcmd.sh +quit &&`
+	# Prevent steamclient.so warnings &&`
+		mkdir /root/.steam &&`
+		ln -s /app/steamcmd/linux32 /root/.steam/sdk32 &&`
+	# Set permissions &&`
 		chmod -R 755 /app/steamcmd
 
 CMD ["/bin/bash"]
