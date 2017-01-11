@@ -8,7 +8,7 @@ EXPOSE 4380/udp \
 		27000-27030/udp
 
 ENV DEBIAN_FRONTEND noninteractive \
-	IMAGE_NAME="lacledeslan/gamesvr:srcds.linux" \
+	IMAGE="lacledeslan/gamesvr:srcds.linux" \
 	STEAM_USERNAME="anyonomous" \
 	STEAM_PASSWORD=""
 
