@@ -1,0 +1,10 @@
+# escape=`
+
+FROM microsoft/nanoserver
+
+MAINTAINER Laclede's LAN <contact@lacledeslan.com>
+
+ENV IMAGE="gamesvr-srcds:win"
+
+EXPOSE 4380/udp `
+		27000-27030/udp
