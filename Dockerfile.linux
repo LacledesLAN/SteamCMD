@@ -14,12 +14,16 @@ ENV	IMAGE="lacledeslan/gamesvr:srcds.linux" `
 	STEAM_PASSWORD=""
 
 # Install dependencies
-RUN apt-get update && apt-get install -y `
+RUN sudo dpkg --add-architecture i386 &&`
+	apt-get update &&`
+	apt-get -y dist-upgrade &&`
+	apt-get -y install `
 		bzip2 `
 		curl `
 		gzip `
 		lib32gcc1 `
 		libstdc++6 `
+		libstdc++6:i386 `
 		lib32tinfo5 `
 		tar `
 		unzip `
