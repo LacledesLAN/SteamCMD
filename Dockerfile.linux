@@ -9,8 +9,7 @@ ENV IMAGE="gamesvr-srcds:linux"
 EXPOSE 4380/udp `
 		27000-27030/udp
 
-ENV DEBIAN_FRONTEND noninteractive `
-	IMAGE="lacledeslan/gamesvr:srcds.linux" `
+ENV	IMAGE="lacledeslan/gamesvr:srcds.linux" `
 	STEAM_USERNAME="anyonomous" `
 	STEAM_PASSWORD=""
 
@@ -18,9 +17,12 @@ ENV DEBIAN_FRONTEND noninteractive `
 RUN apt-get update && apt-get install -y `
 		bzip2 `
 		curl `
+		gzip `
 		lib32gcc1 `
+		libstdc++6 `
 		lib32tinfo5 `
 		tar `
+		unzip `
 		wget &&`
 	apt-get autoclean &&`
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
