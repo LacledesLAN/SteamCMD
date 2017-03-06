@@ -34,9 +34,6 @@ RUN mkdir /app/steamcmd --parents &&`
 	# Run SteamCMD so that it updates itself &&`
 		chmod +x /app/steamcmd/*.sh &&`
 		/app/steamcmd/steamcmd.sh +quit &&`
-	# Prevent steamclient.so warnings &&`
-		mkdir /root/.steam &&`
-		ln -s /app/steamcmd/linux32 /root/.steam/sdk32 &&`
 	# Set permissions &&`
 		chmod -R 755 /app/steamcmd
 
