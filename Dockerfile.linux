@@ -25,10 +25,12 @@ RUN dpkg --add-architecture i386 &&`
 		libstdc++6 `
 		libstdc++6:i386 `
 		lib32tinfo5 `
+		lib32z1 `
+		lib32z1-dev `
 		tar `
 		unzip `
 		wget &&`
-	apt-get autoclean &&`
+	apt-get clean &&`
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # SteamCMD
