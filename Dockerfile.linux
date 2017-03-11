@@ -9,28 +9,20 @@ ENV IMAGE="gamesvr-srcds:linux"
 EXPOSE 4380/udp `
 		27000-27030/udp
 
-ENV	IMAGE="lacledeslan/gamesvr:srcds.linux" `
+ENV DEBIAN_FRONTEND noninteractive `
+	IMAGE="lacledeslan/gamesvr:srcds.linux" `
 	STEAM_USERNAME="anyonomous" `
 	STEAM_PASSWORD=""
 
 # Install dependencies
-RUN dpkg --add-architecture i386 &&`
-	apt-get update &&`
-	apt-get -y dist-upgrade &&`
-	apt-get -y install `
+RUN apt-get update && apt-get install -y `
 		bzip2 `
 		curl `
-		gzip `
 		lib32gcc1 `
-		libstdc++6 `
-		libstdc++6:i386 `
 		lib32tinfo5 `
-		lib32z1 `
-		lib32z1-dev `
 		tar `
-		unzip `
 		wget &&`
-	apt-get clean &&`
+	apt-get autoclean &&`
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # SteamCMD
@@ -42,6 +34,9 @@ RUN mkdir /app/steamcmd --parents &&`
 	# Run SteamCMD so that it updates itself &&`
 		chmod +x /app/steamcmd/*.sh &&`
 		/app/steamcmd/steamcmd.sh +quit &&`
+	# Prevent steamclient.so warnings &&`
+		mkdir /root/.steam &&`
+		ln -s /app/steamcmd/linux32 /root/.steam/sdk32 &&`
 	# Set permissions &&`
 		chmod -R 755 /app/steamcmd
 
