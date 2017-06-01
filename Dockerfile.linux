@@ -2,17 +2,12 @@
 
 FROM ubuntu:latest
 
-MAINTAINER Laclede's LAN <contact@lacledeslan.com>
-
-ENV IMAGE="gamesvr-srcds:linux"
-
-EXPOSE 4380/udp `
-		27000-27030/udp
+LABEL maintainer "Laclede's LAN <contact@lacledeslan.com>"
 
 ENV DEBIAN_FRONTEND noninteractive `
-	IMAGE="lacledeslan/gamesvr:srcds.linux" `
-	STEAM_USERNAME="anyonomous" `
-	STEAM_PASSWORD=""
+	IMAGE="lacledeslan/gamesvr:srcds.linux"
+
+HEALTHCHECK NONE
 
 # Install dependencies
 RUN apt-get update && apt-get install -y `
@@ -26,7 +21,8 @@ RUN apt-get update && apt-get install -y `
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # SteamCMD
-RUN mkdir /app/steamcmd --parents &&`
+RUN mkdir /app/bin --parents &&`
+	mkdir /app/steamcmd --parents &&`
 	# Download and extract && `
 		cd /app/steamcmd &&`
 		curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -vxz &&`
@@ -40,6 +36,8 @@ RUN mkdir /app/steamcmd --parents &&`
 	# Set permissions &&`
 		chmod -R 755 /app/steamcmd
 
-CMD ["/bin/bash"]
+WORKDIR /app/steamcmd/
 
-WORKDIR /app/
+ENTRYPOINT ["/app/steamcmd/steamcmd.sh"]
+
+CMD ["+quit"]
