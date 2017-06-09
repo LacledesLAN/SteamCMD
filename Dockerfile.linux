@@ -11,32 +11,34 @@ HEALTHCHECK NONE
 
 # Install dependencies
 RUN apt-get update && apt-get install -y `
-		bzip2 `
-		curl `
-		lib32gcc1 `
-		lib32tinfo5 `
-		tar `
-		wget &&`
-	apt-get autoclean &&`
+		bzip2 curl lib32gcc1 lib32tinfo5 tar wget &&`
+	apt-get clean &&`
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Set up Enviornment
+RUN groupadd --system srcds &&`
+	mkdir /app /app/bin &&`
+		chgrp srcds /app &&`
+		chgrp srcds /app/bin &&`
+ 	useradd `
+		--home /app/steamcmd --create-home `
+		--gid srcds `
+		--system `
+		steamcmd
+
+USER steamcmd
+
+ONBUILD USER root
+
 # SteamCMD
-RUN mkdir /app/bin --parents &&`
-	mkdir /app/steamcmd --parents &&`
-	# Download and extract && `
-		cd /app/steamcmd &&`
-		curl -s http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -vxz &&`
+RUN cd /app/steamcmd &&`
+		curl --silent http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -C /app/steamcmd -vxz &&`
 		rm -f steamcmd_linux.tar.gz &&`
-	# Run SteamCMD so that it updates itself &&`
+	# Run SteamCMD so it self-updates &&`
 		chmod +x /app/steamcmd/*.sh &&`
 		/app/steamcmd/steamcmd.sh +quit &&`
-	# Prevent steamclient.so warnings &&`
-		mkdir /root/.steam &&`
-		ln -s /app/steamcmd/linux32 /root/.steam/sdk32 &&`
-	# Set permissions &&`
-		chmod -R 755 /app/steamcmd
-
-WORKDIR /app/steamcmd/
+	# Cleanup &&`
+	rm /app/steamcmd/Steam/logs/*
 
 ENTRYPOINT ["/app/steamcmd/steamcmd.sh"]
 
