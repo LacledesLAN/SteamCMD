@@ -28,8 +28,6 @@ RUN groupadd --system srcds &&`
 
 USER steamcmd
 
-ONBUILD USER root
-
 # SteamCMD
 RUN cd /app/steamcmd &&`
 		curl --silent http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -C /app/steamcmd -vxz &&`
@@ -43,3 +41,5 @@ RUN cd /app/steamcmd &&`
 ENTRYPOINT ["/app/steamcmd/steamcmd.sh"]
 
 CMD ["+quit"]
+
+ONBUILD USER root
