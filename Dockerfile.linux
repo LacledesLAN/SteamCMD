@@ -9,7 +9,7 @@ ENV IMAGE="lacledeslan/gamesvr:srcds.linux"
 HEALTHCHECK NONE
 
 # Install dependencies
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y `
+RUN apt-get update && apt-get install -y `
         bzip2 curl lib32gcc1 lib32tinfo5 tar wget &&`
     apt-get clean &&`
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -40,5 +40,7 @@ RUN cd /app/steamcmd &&`
 ENTRYPOINT ["/app/steamcmd/steamcmd.sh"]
 
 CMD ["+quit"]
+
+ONBUILD ENTRYPOINT ["/bin/sh -c"]
 
 ONBUILD USER root
