@@ -1,6 +1,6 @@
 # escape=`
 
-FROM ubuntu:rolling
+FROM ubuntu:12.04
 
 LABEL maintainer "Laclede's LAN <contact@lacledeslan.com>"
 
