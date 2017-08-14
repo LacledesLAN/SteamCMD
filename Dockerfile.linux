@@ -1,6 +1,6 @@
 # escape=`
 
-FROM ubuntu:latest
+FROM ubuntu:rolling
 
 LABEL maintainer "Laclede's LAN <contact@lacledeslan.com>"
 
@@ -10,7 +10,7 @@ HEALTHCHECK NONE
 
 # Install dependencies
 RUN apt-get update && apt-get install -y `
-        bzip2 curl gdb lib32gcc1 lib32tinfo5 tar wget &&`
+        bzip2 curl lib32gcc1 lib32tinfo5 tar wget &&`
     apt-get clean &&`
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
