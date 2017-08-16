@@ -47,5 +47,3 @@ RUN cd /app/steamcmd &&`
     rm /app/steamcmd/Steam/logs/*
 
 WORKDIR /app/steamcmd
-
-ONBUILD USER root
