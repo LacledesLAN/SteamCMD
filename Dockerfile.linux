@@ -20,13 +20,11 @@ HEALTHCHECK NONE
 RUN apt-get update && apt-get install -y `
         bzip2 curl lib32gcc1 lib32tinfo5 tar wget &&`
     apt-get clean &&`
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
 
-# Set up Enviornment
+# Add user "steamcmd" (to user group "srcds")
 RUN groupadd --system srcds &&`
-    mkdir /app /app/steamcmd --parents &&`
         chgrp srcds /app &&`
-        chgrp srcds /app/steamcmd &&`
     useradd `
         --home /app/steamcmd --create-home `
         --gid srcds `
