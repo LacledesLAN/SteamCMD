@@ -45,10 +45,4 @@ RUN cd /app/steamcmd &&`
     # Cleanup &&`
     rm /app/steamcmd/Steam/logs/*
 
-ENTRYPOINT ["/app/steamcmd/steamcmd.sh"]
-
-CMD ["+quit"]
-
-ENTRYPOINT ["/bin/bash"]
-
 ONBUILD USER root
