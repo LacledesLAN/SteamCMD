@@ -21,6 +21,9 @@ RUN apt-get update && apt-get install -y `
         bzip2 curl lib32gcc1 lib32tinfo5 tar wget &&`
     apt-get clean &&`
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
+    
+# Set up Enviornment
+RUN mkdir /app
 
 # Add user "steamcmd" (to user group "srcds")
 RUN groupadd --system srcds &&`
