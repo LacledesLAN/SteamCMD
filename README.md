@@ -1,12 +1,12 @@
-# gamesvr-srcds
+# SteamCMD 
 SteamCMD in a Docker container.
 
-Used as a base layer for [Laclede's LAN](https://github.com/LacledesLAN) game servers. Can be used as a stand-alone SteamCMD utility.
+Used a build tool for [Laclede's LAN](https://github.com/LacledesLAN) game servers.
 
 # Linux Container
-[![](https://images.microbadger.com/badges/image/lacledeslan/gamesvr-srcds:linux.svg)](https://microbadger.com/images/lacledeslan/gamesvr-srcds:linux "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/lacledeslan/steamcmd:linux.svg)](https://microbadger.com/images/lacledeslan/steamcmd:linux "Get your own image badge on microbadger.com")
 ```
-docker pull lacledeslan/gamesvr-srcds:linux
+docker pull lacledeslan/steamcmd:linux
 ```
 
 # Windows Container
