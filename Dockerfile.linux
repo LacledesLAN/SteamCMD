@@ -24,9 +24,9 @@ RUN apt-get update && apt-get install -y `
 
 # Set up Enviornment
 RUN groupadd --system srcds &&`
-    mkdir /app /app/bin &&`
+    mkdir /app /app/steamcmd --parents &&`
         chgrp srcds /app &&`
-        chgrp srcds /app/bin &&`
+        chgrp srcds /app/steamcmd &&`
     useradd `
         --home /app/steamcmd --create-home `
         --gid srcds `
@@ -44,5 +44,7 @@ RUN cd /app/steamcmd &&`
         /app/steamcmd/steamcmd.sh +quit &&`
     # Cleanup &&`
     rm /app/steamcmd/Steam/logs/*
+
+WORKDIR /app/steamcmd
 
 ONBUILD USER root
