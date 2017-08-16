@@ -49,6 +49,6 @@ ENTRYPOINT ["/app/steamcmd/steamcmd.sh"]
 
 CMD ["+quit"]
 
-ONBUILD ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash"]
 
 ONBUILD USER root
