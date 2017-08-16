@@ -1,10 +1,10 @@
 # escape=`
 
-FROM ubuntu:12.04
+FROM ubuntu:rolling
 
 LABEL maintainer "Laclede's LAN <contact@lacledeslan.com>"
 
-ENV IMAGE="lacledeslan/gamesvr:srcds.linux"
+ENV IMAGE="lacledeslan/steamcmd"
 
 HEALTHCHECK NONE
 
