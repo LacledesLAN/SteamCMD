@@ -38,7 +38,7 @@ USER steamcmd
 
 # SteamCMD
 RUN cd /app &&`
-        curl --silent http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -C /app/steamcmd -vxz &&`
+        curl --silent http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -C /app -vxz &&`
         rm -f steamcmd_linux.tar.gz &&`
     # Run SteamCMD so it self-updates &&`
         chmod +x /app/*.sh &&`
