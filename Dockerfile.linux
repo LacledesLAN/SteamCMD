@@ -23,27 +23,29 @@ RUN apt-get update && apt-get install -y `
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
     
 # Set up Enviornment
-RUN mkdir /app
+RUN mkdir /app --parents
 
-# Add user "steamcmd" (to user group "srcds")
-RUN groupadd --system srcds &&`
-        chgrp srcds /app &&`
+# Add user "steamcmd" (to user group "steam")
+RUN groupadd --system steam &&`
+        chgrp steam /app &&`
     useradd `
-        --home /app/steamcmd --create-home `
-        --gid srcds `
+        --no-create-home `
+        --gid steam `
         --system `
         steamcmd
 
 USER steamcmd
 
 # SteamCMD
-RUN cd /app/steamcmd &&`
+RUN cd /app &&`
         curl --silent http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar -C /app/steamcmd -vxz &&`
         rm -f steamcmd_linux.tar.gz &&`
     # Run SteamCMD so it self-updates &&`
-        chmod +x /app/steamcmd/*.sh &&`
-        /app/steamcmd/steamcmd.sh +quit &&`
+        chmod +x /app/*.sh &&`
+        /app/steamcmd.sh +quit &&`
     # Cleanup &&`
-    rm /app/steamcmd/Steam/logs/*
+    rm /app/Steam/logs/*
 
-WORKDIR /app/steamcmd
+WORKDIR /app
+
+ONBUILD USER root
