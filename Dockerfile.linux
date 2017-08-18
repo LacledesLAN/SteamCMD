@@ -49,5 +49,3 @@ RUN cd /app &&`
         /app/steamcmd.sh +quit;
 
 WORKDIR /app
-
-ONBUILD USER root
