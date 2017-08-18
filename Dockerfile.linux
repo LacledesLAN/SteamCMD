@@ -25,7 +25,7 @@ RUN apt-get update &&`
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
 
 # Set up Enviornment
-RUN mkdir /app --parents
+RUN mkdir /app/output --parents
 
 # Add user "SteamCMD" (to user group "steam")
 RUN groupadd steam --system &&`
@@ -34,8 +34,7 @@ RUN groupadd steam --system &&`
         --gid steam `
         --system `
         SteamCMD &&`
-    chown SteamCMD:steam -R /app &&`
-    chmod -R 775 /app
+    chown SteamCMD:steam -R /app;
 
 USER SteamCMD
 
