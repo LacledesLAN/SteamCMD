@@ -20,23 +20,24 @@ HEALTHCHECK NONE
 RUN apt-get update &&`
     apt-get install -y `
         bzip2 curl lib32gcc1 lib32tinfo5 tar wget &&`
+    apt-get autoremove &&`
     apt-get clean &&`
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
 
 # Set up Enviornment
 RUN mkdir /app --parents
 
-# Add user "steamcmd" (to user group "steam")
+# Add user "SteamCMD" (to user group "steam")
 RUN groupadd steam --system &&`
     useradd `
         --home /app `
-        --no-create-home `
         --gid steam `
         --system `
-        steamcmd &&`
-    chown steamcmd:steam -R /app
+        SteamCMD &&`
+    chown SteamCMD:steam -R /app &&`
+    chmod -R 775 /app
 
-USER steamcmd
+USER SteamCMD
 
 # SteamCMD
 RUN cd /app &&`
@@ -44,9 +45,7 @@ RUN cd /app &&`
         rm -f steamcmd_linux.tar.gz &&`
     # Run SteamCMD so it self-updates &&`
         chmod +x /app/*.sh &&`
-        /app/steamcmd.sh +quit &&`
-    # Cleanup &&`
-    rm /app/Steam/logs/* || true
+        /app/steamcmd.sh +quit;
 
 WORKDIR /app
 
