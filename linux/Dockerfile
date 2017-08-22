@@ -32,7 +32,7 @@ ENV PATH "$PATH:/test:/test/bin"
 RUN git clone https://github.com/sstephenson/bats.git /test/ &&`
     PATH=$PATH:~/test/bin
 
-COPY ./tests.linux /test
+COPY ./tests.bats /test/tests.bats
 
 #Add user "SteamCMD". Assign to group "root" until [github.com/moby/moby/pull/34263] makes it into CE stable
 RUN useradd `
@@ -42,8 +42,7 @@ RUN useradd `
         SteamCMD &&`
     chown SteamCMD:root -R /app &&`
     chown SteamCMD:root -R /output &&`
-    chown SteamCMD:root -R /test &&`
-        chmod +x /test/test.sh;
+    chown SteamCMD:root -R /test;
 
 USER SteamCMD
 

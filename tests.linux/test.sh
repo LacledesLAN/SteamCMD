@@ -1,1 +1,0 @@
-bats /test/test.bats
