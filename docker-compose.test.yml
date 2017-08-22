@@ -1,6 +1,5 @@
 version: '3'
 sut:
     build: .
-        context: ./
         dockerfile: Dockerfile.linux
     command: bats /test/test.bats
