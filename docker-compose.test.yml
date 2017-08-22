@@ -1,5 +1,5 @@
 sut:
     build:
-        context: ./
+        context: .
         dockerfile: Dockerfile.linux
     command: bats /test/test.bats
