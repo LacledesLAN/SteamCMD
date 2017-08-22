@@ -1,41 +1,49 @@
 # escape=`
 
-FROM ubuntu:rolling
+FROM debian:stable-slim
 
-ARG VCS_REF
+ARG IMAGE_NAME
+ARG SOURCE_COMMIT
 
-LABEL maintainer="Laclede's LAN <contact@lacledeslan.com>" `
-      org.label-schema.description="SteamCMD in Docker" `
+LABEL maintainer="Laclede's LAN <contact @lacledeslan.com>" `
+      org.label-schema.schema-version="1.0" `
+      org.label-schema.name=$IMAGE_NAME `
       org.label-schema.url="https://github.com/LacledesLAN" `
       org.label-schema.vendor="Laclede's LAN" `
-      org.label-schema.vcs-ref=$VCS_REF `
-      org.label-schema.name="SteamCMD" `
+      org.label-schema.vcs-ref=$SOURCE_COMMIT `
+      org.label-schema.description="Builder with SteamCMD" `
       org.label-schema.vcs-url="https://github.com/LacledesLAN/SteamCMD"
-
-ENV IMAGE="lacledeslan/steamcmd"
 
 HEALTHCHECK NONE
 
 # Install dependencies
 RUN apt-get update &&`
     apt-get install -y `
-        bzip2 curl lib32gcc1 lib32tinfo5 tar wget &&`
+        bzip2 curl git lib32gcc1 tar wget &&`
     apt-get autoremove &&`
     apt-get clean &&`
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
 
 # Set up Enviornment
-RUN mkdir /app/output /output --parents
+RUN mkdir -p /app /output /test
+ENV PATH "$PATH:/test:/test/bin"
 
-# Add user "SteamCMD" (to user group "steam")
-RUN groupadd steam --system &&`
-    useradd `
+## Set Up Testing
+RUN git clone https://github.com/sstephenson/bats.git /test/ &&`
+    PATH=$PATH:~/test/bin
+
+COPY ./tests.linux /test
+
+#Add user "SteamCMD". Assign to group "root" until [github.com/moby/moby/pull/34263] makes it into CE stable
+RUN useradd `
         --home /app `
-        --gid steam `
+        --gid root `
         --system `
         SteamCMD &&`
-    chown SteamCMD:steam -R /app &&`
-    chown SteamCMD:steam -R /output;
+    chown SteamCMD:root -R /app &&`
+    chown SteamCMD:root -R /output &&`
+    chown SteamCMD:root -R /test &&`
+        chmod +x /test/test.sh;
 
 USER SteamCMD
 
@@ -45,7 +53,10 @@ RUN cd /app &&`
         rm -f steamcmd_linux.tar.gz &&`
     # Run SteamCMD so it self-updates &&`
         chmod +x /app/*.sh &&`
-        /app/steamcmd.sh +quit &&`
         /app/steamcmd.sh +quit;
 
 WORKDIR /app
+
+ONBUILD USER root
+
+USER root
