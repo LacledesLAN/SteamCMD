@@ -52,7 +52,8 @@ RUN cd /app &&`
         rm -f steamcmd_linux.tar.gz &&`
     # Run SteamCMD so it self-updates &&`
         chmod +x /app/*.sh &&`
-        /app/steamcmd.sh +quit;
+        /app/steamcmd.sh +login anonymous +force_install_dir /output +quit;
+        
 
 WORKDIR /app
 
