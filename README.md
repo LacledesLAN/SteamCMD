@@ -1,7 +1,7 @@
 [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD) in a [Docker](https://www.docker.com/what-docker) container. The project is maintained by [Laclede's LAN](https://lacledeslan.com). Source files are hosted on [GitHub](https://github.com/LacledesLAN/SteamCMD) and public images are stored on [Docker Hub](https://hub.docker.com/r/lacledeslan/steamcmd/).
 
-- [Linux](#Linux-Container)
-- [Windows](#Windows-Container)
+- [Linux](#linux-container)
+- [Windows](#windows-container)
 
 # Linux-Container
 [![](https://images.microbadger.com/badges/image/lacledeslan/steamcmd:linux.svg)](https://microbadger.com/images/lacledeslan/steamcmd:linux "Get your own image badge on microbadger.com")
