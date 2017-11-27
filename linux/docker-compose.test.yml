@@ -1,8 +1,8 @@
 version: "2"
 
-services: 
+services:
     sut:
         build:
             context: .
             dockerfile: ./Dockerfile
-        command: /test/bin/bats /test/tests.bats
+        command: /app/ll-tests/steamcmd.sh
