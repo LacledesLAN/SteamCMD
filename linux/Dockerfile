@@ -19,7 +19,7 @@ HEALTHCHECK NONE
 # Install dependencies
 RUN apt-get update &&`
     apt-get install -y `
-        bzip2 ca-certificates curl lib32gcc1 tar wget &&`
+        bzip2 ca-certificates curl lib32gcc1 tar unzip wget &&`
     apt-get clean &&`
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
