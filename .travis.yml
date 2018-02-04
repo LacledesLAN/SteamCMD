@@ -15,8 +15,8 @@ before_install:
 
 script:
   - docker version
-  - docker build --no-cache --tag lltest/steamcmd --tag lacledeslan/steamcmd --build-arg BUILDNODE=TravisCI ./linux
-  - docker run -it --rm lltest/steamcmd ./ll-tests/steamcmd.sh
+  - docker build --no-cache --tag lltest/steamcmd:linux --tag lacledeslan/steamcmd:linux --build-arg BUILDNODE=TravisCI ./linux
+  - docker run -it --rm lltest/steamcmd:linux ./ll-tests/steamcmd.sh
 
 notifications:
   slack:
@@ -26,8 +26,9 @@ before_deploy:
   - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASS";
 deploy:
   provider: script
-  script: docker push lacledeslan/steamcmd
+  script: docker push lacledeslan/steamcmd:linux
   on:
     branch: master
 after_deploy:
-  - curl -X POST https://hooks.microbadger.com/images/lacledeslan/gamesvr-cssource/$MICROBADGER_TOKEN
+  - curl -X POST https://hooks.microbadger.com/images/lacledeslan/steamcmd/$MICROBADGER_TOKEN
+  
