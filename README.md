@@ -4,20 +4,26 @@
 - [Windows](#windows-container)
 
 # Linux-Container
+
+
+[![](https://images.microbadger.com/badges/version/lacledeslan/steamcmd:linux.svg)](https://microbadger.com/images/lacledeslan/steamcmd:linux "Get your own version badge on microbadger.com")
+[![Build Status](https://travis-ci.org/LacledesLAN/SteamCMD.svg?branch=master)](https://travis-ci.org/LacledesLAN/SteamCMD)
 [![](https://images.microbadger.com/badges/image/lacledeslan/steamcmd:linux.svg)](https://microbadger.com/images/lacledeslan/steamcmd:linux "Get your own image badge on microbadger.com")
 
-* `/app/` contains the SteamCMD binaries.
-* `/output/` is a convenience directory for stashing SteamCMD downloaded content.
+- `/app/` contains the SteamCMD binaries.
+- `/output/` is a convenience directory for stashing SteamCMD downloaded content.
 
-## Downloading
-```
+## Download
+
+```(shell)
 docker pull lacledeslan/steamcmd:linux
 ```
 
 ## Use as a [Multi-Stage](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) Builder
+
 WARNING: In our experience Docker Cloud's automated builds doesn't reliably work when the builder container exceeds ~4GB.
 
-```
+```(shell)
 FROM lacledeslan/steamcmd:linux as hl2dm-builder
 RUN /app/steamcmd/steamcmd.sh +login anonymous +force_install_dir /output +app_update 232370 validate +quit;
 FROM ...
@@ -25,18 +31,20 @@ COPY --from=hl2dm-builder /output /destination-path
 ```
 
 ## Copy SteamCMD into a Container
+
 Useful for overcoming cloud limitations.
 
-```
+```(shell)
 FROM lacledeslan/steamcmd:linux as builder
 FROM ...
 COPY --from=builder /app /destination-steamcmd-directory
 ```
 
 ## Use as a Containerized Application
+
 Use this SteamCMD Docker container to install steam network content to your local hard drive.
 
-```shell
+```(shell)
 mkdir ~/steamcmd-output
 
 chmod +w ~/steamcmd-output
@@ -45,7 +53,8 @@ docker run -i --rm -v ~/steamcmd-output:/output lacledeslan/steamcmd:linux ./ste
 ```
 
 ## Run Automated Tests
-```
+
+```(shell)
 docker run lacledeslan/steamcmd:linux --rm /app/ll-tests/steamcmd.sh
 ```
 

@@ -15,7 +15,7 @@ before_install:
 
 script:
   - docker version
-  - docker build --no-cache --tag lltest/steamcmd:linux --tag lacledeslan/steamcmd:linux --build-arg BUILDNODE=TravisCI --build-arg SOURCE_COMMIT=$(TRAVIS_COMMIT) ./linux
+  - docker build --no-cache --tag lltest/steamcmd:linux --tag lacledeslan/steamcmd:linux --build-arg BUILDNODE=TravisCI --build-arg SOURCE_COMMIT="$TRAVIS_COMMIT" ./linux
   - docker run -it --rm lltest/steamcmd:linux ./ll-tests/steamcmd.sh
 
 notifications:

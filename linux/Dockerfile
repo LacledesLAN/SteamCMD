@@ -42,3 +42,5 @@ RUN wget -qO- http://media.steampowered.com/installer/steamcmd_linux.tar.gz | ta
     /app/steamcmd.sh +login anonymous +force_install_dir /output +quit;
 
 WORKDIR /app
+
+ONBUILD USER root
