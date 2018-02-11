@@ -5,10 +5,8 @@
 
 # Linux-Container
 
-
-[![](https://images.microbadger.com/badges/version/lacledeslan/steamcmd:linux.svg)](https://microbadger.com/images/lacledeslan/steamcmd:linux "Get your own version badge on microbadger.com")
 [![Build Status](https://travis-ci.org/LacledesLAN/SteamCMD.svg?branch=master)](https://travis-ci.org/LacledesLAN/SteamCMD)
-[![](https://images.microbadger.com/badges/image/lacledeslan/steamcmd:linux.svg)](https://microbadger.com/images/lacledeslan/steamcmd:linux "Get your own image badge on microbadger.com")
+[![Layers Summary](https://images.microbadger.com/badges/image/lacledeslan/steamcmd:linux.svg)](https://microbadger.com/images/lacledeslan/steamcmd:linux "Get your own image badge on microbadger.com")
 
 - `/app/` contains the SteamCMD binaries.
 - `/output/` is a convenience directory for stashing SteamCMD downloaded content.

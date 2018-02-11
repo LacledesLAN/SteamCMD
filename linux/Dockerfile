@@ -5,8 +5,7 @@ FROM debian:stable-slim
 ARG BUILDNODE=unspecified
 ARG SOURCE_COMMIT=unspecified
 
-LABEL maintainer="Laclede's LAN <contact @lacledeslan.com>" `
-      com.lacledeslan.build-node=$BUILDNODE `
+LABEL com.lacledeslan.build-node=$BUILDNODE `
       org.label-schema.schema-version="1.0" `
       org.label-schema.url="https://github.com/LacledesLAN/README.1ST" `
       org.label-schema.vcs-ref=$SOURCE_COMMIT `
