@@ -23,7 +23,7 @@ WARNING: In our experience Docker Cloud's automated builds doesn't reliably work
 
 ```(shell)
 FROM lacledeslan/steamcmd:linux as hl2dm-builder
-RUN /app/steamcmd/steamcmd.sh +login anonymous +force_install_dir /output +app_update 232370 validate +quit;
+RUN /app/steamcmd.sh +login anonymous +force_install_dir /output +app_update 232370 validate +quit;
 FROM ...
 COPY --from=hl2dm-builder /output /destination-path
 ```
