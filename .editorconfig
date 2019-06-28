@@ -11,5 +11,5 @@ trim_trailing_whitespace = true
 [.travis.yml]
 indent_size = 2
 
-[/windows/**]
+[windows.Dockerfile]
 end_of_line = crlf

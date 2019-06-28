@@ -11,19 +11,24 @@ LABEL com.lacledeslan.build-node=$BUILDNODE `
       org.label-schema.vcs-ref=$SOURCE_COMMIT `
       org.label-schema.vendor="Laclede's LAN" `
       org.label-schema.description="SteamCMD in Docker" `
-      org.label-schema.vcs-url="https://github.com/LacledesLAN/SteamCMD"
+      org.label-schema.vcs-url="https://github.com/LacledesLAN/SteamCMD:linux"
 
 HEALTHCHECK NONE
 
 # Install dependencies
-RUN apt-get update &&`
-    apt-get install -y `
-        bzip2 ca-certificates curl lib32gcc1 p7zip-full tar unzip wget &&`
-    apt-get clean &&`
-    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
+RUN DEBIAN_FRONTEND=noninteractive &&`
+    apt-get update && apt-get install -y `
+        bzip2 ca-certificates curl lib32gcc1 locales p7zip-full tar unzip wget &&`
+    sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&`
+        locale-gen --no-purge en_US.UTF-8 &&`
+        apt-get remove locales -y &&`
+    apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
+
+ENV LANG=en_US.UTF-8 `
+    LANGUAGE=en_US.UTF-8
 
 # Add in tests
-COPY /ll-tests /app/ll-tests
+COPY /dist/linux/tests/ /app/ll-tests/
 
 # Set up Enviornment
 # Adds user 'SteamCMD' to group 'root' until --chown ([github.com/moby/moby/pull/34263]) makes it into Docker Cloud

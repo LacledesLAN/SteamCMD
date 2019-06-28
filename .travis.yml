@@ -15,8 +15,8 @@ before_install:
 
 script:
   - docker version
-  - docker build --no-cache --tag lltest/steamcmd:linux --tag lacledeslan/steamcmd:linux --build-arg BUILDNODE=TravisCI --build-arg SOURCE_COMMIT="$TRAVIS_COMMIT" ./linux
-  - docker run -it --rm lltest/steamcmd:linux ./ll-tests/steamcmd.sh
+  - docker build --no-cache --tag lacledeslan/steamcmd --tag lacledeslan/steamcmd:linux --build-arg BUILDNODE=TravisCI --build-arg SOURCE_COMMIT="$TRAVIS_COMMIT" -f linux.Dockerfile .
+  - docker run -it --rm lacledeslan/steamcmd ./ll-tests/steamcmd.sh
 
 notifications:
   slack:
@@ -26,6 +26,7 @@ before_deploy:
   - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin;
 deploy:
   provider: script
+  script: docker push lacledeslan/steamcmd
   script: docker push lacledeslan/steamcmd:linux
   on:
     branch: master
