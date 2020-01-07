@@ -1,0 +1,36 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Linux - Build Docker Image",
+            "type": "shell",
+            "command": "docker pull debian:stable-slim; docker build . -f linux.Dockerfile -t lltest/steamcmd --no-cache --build-arg BUILDNODE=$env:computername;",
+            "group": "build",
+            "problemMatcher": [],
+            "promptOnClose": true
+        },
+        {
+            "label": "Linux - Build & Execute Self Tests",
+            "type": "shell",
+            "command": "docker run -it --rm lltest/steamcmd ./ll-tests/steamcmd.sh;",
+            "dependsOn": "Linux - Build Docker Image",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "promptOnClose": true
+        },
+        {
+            "label": "Linux - Build & Shell In",
+            "type": "shell",
+            "command": "docker run -it --net=host --rm lltest/steamcmd;",
+            "dependsOn": "Linux - Build Docker Image",
+            "group": "build",
+            "problemMatcher": [],
+            "promptOnClose": true
+        }
+    ]
+}

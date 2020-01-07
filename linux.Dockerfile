@@ -27,24 +27,22 @@ RUN DEBIAN_FRONTEND=noninteractive &&`
 ENV LANG=en_US.UTF-8 `
     LANGUAGE=en_US.UTF-8
 
-# Add in tests
-COPY /dist/linux/tests/ /app/ll-tests/
+# Set up User Enviornment
+RUN useradd --home /app --gid root --system SteamCMD &&`
+    mkdir -p /app/ll-tests &&`
+    chown SteamCMD:root -R /app
 
-# Set up Enviornment
-# Adds user 'SteamCMD' to group 'root' until --chown ([github.com/moby/moby/pull/34263]) makes it into Docker Cloud
-RUN mkdir -p /app/ll-tests /output &&`
-    useradd --home /app --gid root --system SteamCMD &&`
-    chown SteamCMD:root -R /app &&`
-    chown SteamCMD:root -R /output &&`
-    chmod +x /app/ll-tests/*.sh;
+COPY --chown=SteamCMD:root /dist/linux/ll-tests/ /app/ll-tests/
+
+RUN chmod +x /app/ll-tests/*.sh;
 
 USER SteamCMD
 
-# Obtain SteamCMD; Run so it self-updates
+WORKDIR /app
+
+# Obtain SteamCMD; run so it self-updates
 RUN wget -qO- http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar xz -C /app &&`
     chmod +x /app/steamcmd.sh &&`
     /app/steamcmd.sh +login anonymous +force_install_dir /output +quit;
-
-WORKDIR /app
 
 ONBUILD USER root
