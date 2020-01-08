@@ -29,8 +29,9 @@ ENV LANG=en_US.UTF-8 `
 
 # Set up User Enviornment
 RUN useradd --home /app --gid root --system SteamCMD &&`
-    mkdir -p /app/ll-tests &&`
-    chown SteamCMD:root -R /app
+    mkdir -p /app/ll-tests /output &&`
+    chown SteamCMD:root -R /app &&`
+    chown SteamCMD:root -R /output;
 
 COPY --chown=SteamCMD:root /dist/linux/ll-tests/ /app/ll-tests/
 

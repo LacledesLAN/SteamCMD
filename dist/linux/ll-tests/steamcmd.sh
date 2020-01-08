@@ -42,7 +42,6 @@ if [ $? -ne 0 ]; then
     echo "ERROR: SteamCMD dependency 'lib32gcc1' must be installed";
     exit 1;
 fi;
-
 echo "OK";
 
 echo -e "\n[Verifying that SteamCMD executes properly]";
@@ -59,5 +58,24 @@ if [ $? -ne 0 ] ; then
 
     exit 1;
 fi;
+echo "OK"
+
+echo -e "\n[Verifying /output directory exists]";
+[ ! -d /output/ ] && echo "/output directory doesn't exist" && exit 1;
+echo "OK"
+
+echo -e "\n[Verifying that user can create files in the /output directory]";
+touch /output/test1 /output/test2 /output/test3
+[ ! -f /output/test1 ] && echo "/output/test1 does not exist" && exit 1;
+[ ! -f /output/test2 ] && echo "/output/test2 does not exist" && exit 1;
+[ ! -f /output/test3 ] && echo "/output/test3 does not exist" && exit 1;
+echo "OK"
+
+echo -e "\n[Verifying that user can delete files from /output directory]";
+rm /output/test1 /output/test2 /output/test3
+[ -f /output/test1 ] && echo "/output/test1 wasn't deleted" && exit 1;
+[ -f /output/test2 ] && echo "/output/test2 wasn't deleted" && exit 1;
+[ -f /output/test3 ] && echo "/output/test3 wasn't deleted" && exit 1;
+echo "OK"
 
 echo -e "ALL TESTS PASSED\nOK\n";
