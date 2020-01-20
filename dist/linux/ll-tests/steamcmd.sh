@@ -1,36 +1,36 @@
 #!/bin/bash
 
-echo -e "\n{{Running image tests for 'SteamCMD'}}";
+echo -e "\n[[ Running lacledeslan/SteamCMD tests ]]\n";
 
-echo "[Verifying builder image utilities are installed]";
+echo -e "Verifying utilities are installed...";
 
 { bzip2 --version; } &> /dev/null;
 if [ $? -ne 0 ]; then
-    echo "ERROR: Builder utility 'bzip2' must be installed";
+    echo "ERROR: Utility 'bzip2' should be installed";
     exit 1;
 fi;
 
 { curl --version; } &> /dev/null;
 if [ $? -ne 0 ]; then
-    echo "ERROR: Builder utility 'curl' must be installed";
+    echo "ERROR: Utility 'curl' should be installed";
     exit 1;
 fi;
 
 { tar --version; } &> /dev/null;
 if [ $? -ne 0 ]; then
-    echo "ERROR: Builder utility 'tar' must be installed";
+    echo "ERROR: Utility 'tar' should be installed";
     exit 1;
 fi;
 
 { wget --version; } &> /dev/null;
 if [ $? -ne 0 ]; then
-    echo "ERROR: Builder utility 'wget' must be installed";
+    echo "ERROR: Utility 'wget' should be installed";
     exit 1;
 fi;
 
-echo "OK";
+echo -e "OK\n";
 
-echo -e "\n[Verifying SteamCMD dependencies are installed]";
+echo -e "Verifying SteamCMD dependencies are installed...";
 { dpkg -s ca-certificates; } &> /dev/null;
 if [ $? -ne 0 ]; then
     echo "ERROR: SteamCMD dependency 'ca-certificates' must be installed";
@@ -42,10 +42,13 @@ if [ $? -ne 0 ]; then
     echo "ERROR: SteamCMD dependency 'lib32gcc1' must be installed";
     exit 1;
 fi;
-echo "OK";
 
-echo -e "\n[Verifying that SteamCMD executes properly]";
-{ timeout 12 /app/steamcmd.sh +quit; } &> /dev/null;
+echo -e "OK\n";
+
+echo -e "Verifying SteamCMD executes properly...";
+declare outfile="/app/ll-tests/teststeamcmd-$(date '+%H%M%S').txt"
+
+{ timeout 14 /app/steamcmd.sh +quit; } &> "$outfile";
 
 if [ $? -ne 0 ] ; then
     if [ $? -eq 124 ] ; then
@@ -58,24 +61,31 @@ if [ $? -ne 0 ] ; then
 
     exit 1;
 fi;
-echo "OK"
 
-echo -e "\n[Verifying /output directory exists]";
+[ ! -f "$outfile" ] && { echo "Testing error: $0 steamcmd output file not found."; exit 2; }
+
+if grep -i -q "International characters may not work." "$outfile"; then
+    echo -e "\nERROR: SteamCMD can't find character encoding locale.\n\n";
+    cat "$outfile"
+    exit 1;
+fi;
+
+echo -e "OK\n";
+
+echo -e "Verifying /output directory settings...";
+
 [ ! -d /output/ ] && echo "/output directory doesn't exist" && exit 1;
-echo "OK"
 
-echo -e "\n[Verifying that user can create files in the /output directory]";
 touch /output/test1 /output/test2 /output/test3
-[ ! -f /output/test1 ] && echo "/output/test1 does not exist" && exit 1;
-[ ! -f /output/test2 ] && echo "/output/test2 does not exist" && exit 1;
-[ ! -f /output/test3 ] && echo "/output/test3 does not exist" && exit 1;
-echo "OK"
+[ ! -f /output/test1 ] && echo "Test file /output/test1 was not created" && exit 1;
+[ ! -f /output/test2 ] && echo "Test file /output/test2 was not created" && exit 1;
+[ ! -f /output/test3 ] && echo "Test file /output/test3 was not created" && exit 1;
 
-echo -e "\n[Verifying that user can delete files from /output directory]";
 rm /output/test1 /output/test2 /output/test3
-[ -f /output/test1 ] && echo "/output/test1 wasn't deleted" && exit 1;
-[ -f /output/test2 ] && echo "/output/test2 wasn't deleted" && exit 1;
-[ -f /output/test3 ] && echo "/output/test3 wasn't deleted" && exit 1;
-echo "OK"
+[ -f /output/test1 ] && echo "Test file /output/test1 wasn't deleted" && exit 1;
+[ -f /output/test2 ] && echo "Test file /output/test2 wasn't deleted" && exit 1;
+[ -f /output/test3 ] && echo "Test file /output/test3 wasn't deleted" && exit 1;
 
-echo -e "ALL TESTS PASSED\nOK\n";
+echo -e "OK\n";
+
+echo -e "\n[ALL TESTS PASSED]\n";
