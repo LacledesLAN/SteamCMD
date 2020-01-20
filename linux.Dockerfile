@@ -21,7 +21,6 @@ RUN DEBIAN_FRONTEND=noninteractive &&`
         bzip2 ca-certificates curl lib32gcc1 locales p7zip-full tar unzip wget &&`
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&`
         locale-gen --no-purge en_US.UTF-8 &&`
-        apt-get remove locales -y &&`
     apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
 ENV LANG=en_US.UTF-8 `
