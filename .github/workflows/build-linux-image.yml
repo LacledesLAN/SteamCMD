@@ -57,7 +57,7 @@ jobs:
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: lacledeslan/steamcmd
           short-description: SteamCMD in Docker, for use as a builder image
           readme-filepath: ./README.md
