@@ -54,7 +54,7 @@ jobs:
         uses: docker/login-action@v1 
         with:
           registry: ghcr.io
-          username: ${{ github.LLCONTAINERS_USERNAME }}
+          username: ${{ secrets.LLCONTAINERS_USERNAME }}
           password: ${{ secrets.LLCONTAINERS_TOKEN }}
       - name: Update Docker HUB Description
         if: ${{ github.event_name != 'pull_request' }}
