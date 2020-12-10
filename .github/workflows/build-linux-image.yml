@@ -35,6 +35,8 @@ jobs:
           tags: |
             lacledeslan/steamcmd:latest
             lacledeslan/steamcmd:linux
+            ghcr.io/LacledesLAN/steamcmd:latest
+            ghcr.io/LacledesLAN/steamcmd:linux
           build-args: |
             BUILDNODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
             SOURCE_COMMIT=${{ github.sha }}
@@ -47,11 +49,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Push Linux Image to Docker HUB
+      - name: Login to GitHub Container Registry
         if: ${{ github.event_name != 'pull_request' }}
-        run: |
-          docker push lacledeslan/steamcmd:latest
-          docker push lacledeslan/steamcmd:linux
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: ${{ github.LLCONTAINERS_USERNAME }}
+          password: ${{ secrets.LLCONTAINERS_TOKEN }}
       - name: Update Docker HUB Description
         if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/dockerhub-description@v2
@@ -61,3 +65,13 @@ jobs:
           repository: lacledeslan/steamcmd
           short-description: SteamCMD in Docker, for use as a builder image
           readme-filepath: ./README.md
+      - name: Push to Docker HUB
+        if: ${{ github.event_name != 'pull_request' }}
+        run: |
+          docker push lacledeslan/steamcmd:latest
+          docker push lacledeslan/steamcmd:linux
+      - name: Push to GitHub Packages
+        if: ${{ github.event_name != 'pull_request' }}
+        run: |
+          docker push ghcr.io/LacledesLAN/steamcmd:latest
+          docker push ghcr.io/LacledesLAN/steamcmd:linux
