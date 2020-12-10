@@ -2,10 +2,7 @@
 
 [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD) in a [Docker](https://www.docker.com/what-docker) container. The project is maintained by [Laclede's LAN](https://lacledeslan.com). Source files are hosted on [GitHub](https://github.com/LacledesLAN/SteamCMD) and public images are stored on [Docker Hub](https://hub.docker.com/r/lacledeslan/steamcmd/).
 
-- [Linux](#linux-container)
-- [Windows](#windows-container)
-
-## Linux
+## Linux/amd64
 
 ![linux/amd64](https://github.com/LacledesLAN/SteamCMD/workflows/linux/amd64/badge.svg?branch=master)
 
