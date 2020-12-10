@@ -5,15 +5,14 @@
 
 # Linux-Container
 
-[![Build Status](https://travis-ci.org/LacledesLAN/SteamCMD.svg?branch=master)](https://travis-ci.org/LacledesLAN/SteamCMD)
-[![Layers Summary](https://images.microbadger.com/badges/image/lacledeslan/steamcmd:linux.svg)](https://microbadger.com/images/lacledeslan/steamcmd:linux "Get your own image badge on microbadger.com")
+![linux/amd64](https://github.com/LacledesLAN/SteamCMD/workflows/linux/amd64/badge.svg?branch=master)
 
 - `/app/` contains the SteamCMD binaries.
 - `/output/` is a convenience directory for stashing SteamCMD downloaded content.
 
 ## Download
 
-```(shell)
+```shell
 docker pull lacledeslan/steamcmd:linux
 ```
 
@@ -32,7 +31,7 @@ COPY --from=hl2dm-builder /output /destination-path
 
 Useful for overcoming cloud limitations.
 
-```(shell)
+```shell
 FROM lacledeslan/steamcmd:linux as builder
 FROM ...
 COPY --from=builder /app /destination-steamcmd-directory
@@ -42,7 +41,7 @@ COPY --from=builder /app /destination-steamcmd-directory
 
 Use this SteamCMD Docker container to install steam network content to your local hard drive.
 
-```(shell)
+```shell
 mkdir ~/steamcmd-output
 
 chmod +w ~/steamcmd-output
@@ -52,8 +51,8 @@ docker run -i --rm -v ~/steamcmd-output:/output lacledeslan/steamcmd:linux ./ste
 
 ## Run Automated Tests
 
-```(shell)
-docker run lacledeslan/steamcmd:linux --rm /app/ll-tests/steamcmd.sh
+```shell
+docker run --rm lacledeslan/steamcmd:linux /app/ll-tests/steamcmd.sh
 ```
 
 # Windows-Container
