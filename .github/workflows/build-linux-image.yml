@@ -52,3 +52,12 @@ jobs:
         run: |
           docker push lacledeslan/steamcmd:latest
           docker push lacledeslan/steamcmd:linux
+      - name: Update Docker HUB Description
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: lacledeslan/steamcmd
+          short-description: SteamCMD in Docker, for use as a builder image
+          readme-filepath: ./README.md
