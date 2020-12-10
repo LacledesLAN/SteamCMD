@@ -11,7 +11,8 @@ LABEL com.lacledeslan.build-node=$BUILDNODE `
       org.label-schema.vcs-ref=$SOURCE_COMMIT `
       org.label-schema.vendor="Laclede's LAN" `
       org.label-schema.description="SteamCMD in Docker" `
-      org.label-schema.vcs-url="https://github.com/LacledesLAN/SteamCMD"
+      org.label-schema.vcs-url="https://github.com/LacledesLAN/SteamCMD" `
+      org.opencontainers.image.source="https://github.com/LacledesLAN/SteamCMD"
 
 HEALTHCHECK NONE
 
