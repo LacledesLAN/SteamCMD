@@ -38,6 +38,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+         name: Pull Latest Linux Base Image
+         run: docker pull debian:stable-slim
+      -
         name: Build Linux Image
         uses: docker/build-push-action@v2
         with:
@@ -46,9 +49,15 @@ jobs:
           tags: |
             lacledeslan/steamcmd:latest
             lacledeslan/steamcmd:linux
+          build-args: |
+            BUILDNODE="GitHub Actions"
+            SOURCE_COMMIT=$GITHUB_SHA
           no-cache: true
       -
-         name: Push to Docker HUB
+          name: Test Linux Image
+          run: docker run lacledeslan/steamcmd:latest --rm /app/ll-tests/steamcmd.sh
+      -
+         name: Push Linux Image to Docker HUB
          run: |
            docker push lacledeslan/steamcmd:latest
            docker push lacledeslan/steamcmd:linux
