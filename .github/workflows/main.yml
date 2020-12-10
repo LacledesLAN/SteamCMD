@@ -50,8 +50,8 @@ jobs:
             lacledeslan/steamcmd:latest
             lacledeslan/steamcmd:linux
           build-args: |
-            BUILDNODE=GitHub-Action${GITHUB_ACTION}-RUN${GITHUB_RUN_NUMBER}
-            SOURCE_COMMIT=${GITHUB_SHA}
+            BUILDNODE=GitHub (Action: ${{ github.action }} RUN NUMBER: ${{ github.run_number }}
+            SOURCE_COMMIT=${{ github.run_number }}
           no-cache: true
       -
           name: Test Linux Image
