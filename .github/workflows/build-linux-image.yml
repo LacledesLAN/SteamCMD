@@ -73,5 +73,5 @@ jobs:
       - name: Push to GitHub Packages
         if: ${{ github.event_name != 'pull_request' }}
         run: |
-          docker push ghcr.io/LacledesLAN/steamcmd:latest
-          docker push ghcr.io/LacledesLAN/steamcmd:linux
+          docker push ghcr.io/lacledeslan/steamcmd:latest
+          docker push ghcr.io/lacledeslan/steamcmd:linux
