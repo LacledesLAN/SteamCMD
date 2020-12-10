@@ -35,8 +35,8 @@ jobs:
           tags: |
             lacledeslan/steamcmd:latest
             lacledeslan/steamcmd:linux
-            ghcr.io/LacledesLAN/steamcmd:latest
-            ghcr.io/LacledesLAN/steamcmd:linux
+            ghcr.io/lacledeslan/steamcmd:latest
+            ghcr.io/lacledeslan/steamcmd:linux
           build-args: |
             BUILDNODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
             SOURCE_COMMIT=${{ github.sha }}
