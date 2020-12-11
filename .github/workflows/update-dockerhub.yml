@@ -1,0 +1,22 @@
+name: Update Docker Hub
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Update Docker HUB Description
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
+          repository: lacledeslan/steamcmd
+          short-description: SteamCMD in Docker, for use as a builder image
+          readme-filepath: ./README.md

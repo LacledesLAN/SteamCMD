@@ -1,12 +1,8 @@
-# This is a basic workflow to help you get started with Actions
-
 name: linux/amd64
 
-# Controls when the action will run. 
 on:
   schedule:
     - cron: '0 12 * * WED'
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
   pull_request:
@@ -21,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -45,26 +41,17 @@ jobs:
         run: docker run --rm lacledeslan/steamcmd:latest /app/ll-tests/steamcmd.sh
       - name: Login to DockerHub
         if: ${{ github.event_name != 'pull_request' }}
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Login to GitHub Container Registry
         if: ${{ github.event_name != 'pull_request' }}
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ secrets.LLCONTAINERS_USERNAME }}
-          password: ${{ secrets.LLCONTAINERS_TOKEN }}
-      - name: Update Docker HUB Description
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: peter-evans/dockerhub-description@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: lacledeslan/steamcmd
-          short-description: SteamCMD in Docker, for use as a builder image
-          readme-filepath: ./README.md
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
       - name: Push to Docker HUB
         if: ${{ github.event_name != 'pull_request' }}
         run: |
