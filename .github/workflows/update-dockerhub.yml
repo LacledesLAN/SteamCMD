@@ -1,4 +1,4 @@
-name: Update Docker Hub
+name: Update Docker Hub Description
 
 on:
   push:
@@ -12,7 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Update Docker HUB Description
-        if: ${{ github.event_name != 'pull_request' }}
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.GHCR_USERNAME }}
