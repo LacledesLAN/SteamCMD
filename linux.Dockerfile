@@ -39,7 +39,7 @@ USER SteamCMD
 
 WORKDIR /app
 
-# Obtain SteamCMD; run so it self-updates
+# Download SteamCMD; run it once for self-updates
 RUN wget -qO- http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar xz -C /app &&`
     chmod +x /app/steamcmd.sh &&`
     /app/steamcmd.sh +login anonymous +force_install_dir /output +quit;

@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
         "buildnode",
+        "bzip",
         "description",
+        "dockerfiles",
         "dockerhub",
         "evans",
         "ghcr",
@@ -9,6 +11,7 @@
         "hub",
         "laclede",
         "lacledeslan",
+        "mkdir",
         "peter",
         "qemu",
         "secrets",
