@@ -17,7 +17,7 @@ HEALTHCHECK NONE
 # Install dependencies
 RUN DEBIAN_FRONTEND=noninteractive &&`
     apt-get update && apt-get install -y `
-        bzip2 ca-certificates curl libarchive13 lib32gcc1 locales p7zip-full tar unzip wget &&`
+        bzip2 ca-certificates curl libarchive13 lib32gcc-s1 locales p7zip-full tar unzip wget &&`
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&`
         locale-gen --no-purge en_US.UTF-8 &&`
     apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;

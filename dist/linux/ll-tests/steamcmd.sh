@@ -37,9 +37,15 @@ if [ $? -ne 0 ]; then
     exit 1;
 fi;
 
-{ dpkg -s lib32gcc1; } &> /dev/null;
+{ dpkg -s lib32gcc-s1; } &> /dev/null;
 if [ $? -ne 0 ]; then
     echo "ERROR: SteamCMD dependency 'lib32gcc1' must be installed";
+    exit 1;
+fi;
+
+{ dpkg -s locales; } &> /dev/null;
+if [ $? -ne 0 ]; then
+    echo "ERROR: SteamCMD dependency 'locales' must be installed";
     exit 1;
 fi;
 
