@@ -28,6 +28,12 @@ if [ $? -ne 0 ]; then
     exit 1;
 fi;
 
+{ xz --version; } &> /dev/null;
+if [ $? -ne 0 ]; then
+    echo "ERROR: Utility 'xz-utils' should be installed";
+    exit 1;
+fi;
+
 echo -e "OK\n";
 
 echo -e "Verifying SteamCMD dependencies are installed...";
