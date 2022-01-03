@@ -8,7 +8,7 @@
 
 - `/app/` contains the SteamCMD binaries.
 - `/output/` is a convenience directory for stashing SteamCMD downloaded content.
-- Image includes `7z`, `bzip2`, `curl`, `SteamCMD`, `tar`, `p7zip`, `unzip`, `wget`.
+- Image includes `7z`, `bzip2`, `curl`, `SteamCMD`, `tar`, `p7zip`, `unzip`, `wget`, `xz-utils`.
 - See [snippets.md](./snippets.md) for additional usage examples.
 
 ### Download
