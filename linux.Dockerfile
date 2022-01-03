@@ -1,6 +1,6 @@
 # escape=`
 
-FROM debian:stable-slim
+FROM debian:bullseye-slim
 
 ARG BUILDNODE=unspecified
 ARG SOURCE_COMMIT=unspecified
@@ -15,9 +15,8 @@ LABEL com.lacledeslan.build-node = $BUILDNODE `
 HEALTHCHECK NONE
 
 # Install dependencies
-RUN DEBIAN_FRONTEND=noninteractive &&`
-    apt-get update && apt-get install -y `
-        bzip2 ca-certificates curl libarchive13 lib32gcc-s1 locales p7zip-full tar unzip wget &&`
+RUN apt-get update && apt-get install -y `
+        bzip2 ca-certificates curl libarchive13 lib32gcc-s1 locales p7zip-full tar unzip wget xz-utils &&`
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&`
         locale-gen --no-purge en_US.UTF-8 &&`
     apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
@@ -42,6 +41,6 @@ WORKDIR /app
 # Download SteamCMD; run it once for self-updates
 RUN wget -qO- http://media.steampowered.com/installer/steamcmd_linux.tar.gz | tar xz -C /app &&`
     chmod +x /app/steamcmd.sh &&`
-    /app/steamcmd.sh +login anonymous +force_install_dir /output +quit;
+    /app/steamcmd.sh +force_install_dir /output +login anonymous +quit;
 
 ONBUILD USER root
