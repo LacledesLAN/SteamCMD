@@ -5,29 +5,35 @@
     "tasks": [
         {
             "label": "Linux - Build Docker Image",
-            "type": "shell",
-            "command": "docker pull debian:stable-slim; docker build . --rm -f linux.Dockerfile -t lltest/steamcmd --no-cache --build-arg BUILDNODE=$env:computername;",
-            "group": "build",
-            "problemMatcher": [],
-            "promptOnClose": true
-        },
-        {
-            "label": "Linux - Build & Execute Self Tests",
-            "type": "shell",
-            "command": "docker run -it --rm lltest/steamcmd ./ll-tests/steamcmd.sh;",
-            "dependsOn": "Linux - Build Docker Image",
+            "type": "docker-build",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
+            "dockerBuild": {
+                "context": "${workspaceFolder}",
+                "dockerfile": "${workspaceFolder}/linux.Dockerfile",
+                "tag": "ll/steamcmd",
+                "labels": {
+                    "com.lacledeslan.build-node": "${env:computername}",
+                    "org.opencontainers.image.version": "dirty (work in progress)"
+                }
+            }
+        },
+        {
+            "label": "Linux - Build & Execute Self Tests",
+            "type": "shell",
+            "dependsOn": "Linux - Build Docker Image",
+            "command": "docker run -it --rm ll/steamcmd /app/ll-tests/steamcmd.sh",
+            "group": "build",
             "problemMatcher": [],
             "promptOnClose": true
         },
         {
             "label": "Linux - Build & Shell In",
             "type": "shell",
-            "command": "docker run -it --net=host --rm lltest/steamcmd;",
             "dependsOn": "Linux - Build Docker Image",
+            "command": "docker run -it --rm ll/steamcmd",
             "group": "build",
             "problemMatcher": [],
             "promptOnClose": true

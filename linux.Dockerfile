@@ -2,15 +2,10 @@
 
 FROM debian:bullseye-slim
 
-ARG BUILDNODE=unspecified
-ARG SOURCE_COMMIT=unspecified
-
-LABEL com.lacledeslan.build-node = $BUILDNODE `
-        org.opencontainers.image.source = "https://github.com/LacledesLAN/SteamCMD" `
-        org.opencontainers.image.title = "SteamCMD in Docker, for use as a builder image" `
-        org.opencontainers.image.url = "https://github.com/LacledesLAN/README.1ST" `
-        org.opencontainers.image.vendor = "Laclede's LAN" `
-        org.opencontainers.image.version = $SOURCE_COMMIT
+LABEL org.opencontainers.image.source https://github.com/LacledesLAN/SteamCMD
+LABEL org.opencontainers.image.title SteamCMD in Docker, for use as a builder image
+LABEL org.opencontainers.image.url https://github.com/LacledesLAN/README.1ST
+LABEL org.opencontainers.image.vendor "Laclede's LAN"
 
 HEALTHCHECK NONE
 

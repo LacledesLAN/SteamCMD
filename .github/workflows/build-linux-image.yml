@@ -21,7 +21,9 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2.0.0
       - name: Pull Latest Linux Base Image
-        run: docker pull debian:stable-slim
+        run: |
+          docker pull debian:stable-slim
+          echo "{RFC3339_DATETIME}=$(date --rfc-3339=seconds)" >> $GITHUB_ENV
       - name: Build Linux Image
         uses: docker/build-push-action@v3.0.0
         with:
@@ -32,9 +34,10 @@ jobs:
             lacledeslan/steamcmd:linux
             ghcr.io/lacledeslan/steamcmd:latest
             ghcr.io/lacledeslan/steamcmd:linux
-          build-args: |
-            BUILDNODE=GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
-            SOURCE_COMMIT=${{ github.sha }}
+          labels: |
+            com.lacledeslan.build-node = GitHub (Run Number: ${{ github.run_number }} Run ID: ${{ github.run_id }})
+            org.opencontainers.image.created = ${{ env.RFC3339_DATETIME }}
+            org.opencontainers.image.version = $SOURCE_COMMIT = ${{ github.sha }}
           no-cache: true
       - name: Test Linux Image
         run: docker run --rm lacledeslan/steamcmd:latest /app/ll-tests/steamcmd.sh
