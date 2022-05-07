@@ -22,7 +22,7 @@ jobs:
         uses: docker/setup-qemu-action@v2.0.0
       - name: Generate ENV Vars
         run: |
-          echo "{rfc3339_datetime}=$(date --rfc-3339=seconds)" >> $GITHUB_ENV
+          echo "{rfc3339_datetime}={$(date --rfc-3339=seconds)}" >> $GITHUB_ENV
       - name: Build Linux Image
         uses: docker/build-push-action@v3.0.0
         with:
@@ -36,7 +36,7 @@ jobs:
           labels: |
             com.lacledeslan.build-node=GitHub (Run #${{ github.run_number }}, ID: ${{ github.run_id }})
             org.opencontainers.image.created=${{ env.rfc3339_datetime }}
-            org.opencontainers.image.version=$SOURCE_COMMIT = ${{ github.sha }}
+            org.opencontainers.image.version=${{ github.sha }}
           pull: true
           no-cache: true
       - name: Test Linux Image
