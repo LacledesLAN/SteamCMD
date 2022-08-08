@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "rfc3339_datetime=$(date --rfc-3339=seconds)" >> $GITHUB_ENV
       - name: Build Linux Image
-        uses: docker/build-push-action@v3.1.0
+        uses: docker/build-push-action@v3.1.1
         with:
           context: .
           file: ./linux.Dockerfile
