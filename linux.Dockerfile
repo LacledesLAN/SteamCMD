@@ -1,6 +1,6 @@
 # escape=`
 
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 LABEL org.opencontainers.image.source https://github.com/LacledesLAN/SteamCMD
 LABEL org.opencontainers.image.title SteamCMD in Docker, for use as a builder image
