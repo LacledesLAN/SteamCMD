@@ -100,4 +100,6 @@ rm /output/test1 /output/test2 /output/test3
 
 echo -e "OK\n";
 
+cat "$outfile";
+
 echo -e "\n[ALL TESTS PASSED]\n";

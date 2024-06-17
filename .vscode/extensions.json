@@ -1,7 +1,7 @@
 {
     "recommendations": [
         "davidanson.vscode-markdownlint",
-		"editorconfig.editorconfig",
+        "editorconfig.editorconfig",
         "ms-azuretools.vscode-docker",
     ]
 }

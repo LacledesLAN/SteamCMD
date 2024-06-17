@@ -9,6 +9,9 @@ LABEL org.opencontainers.image.vendor "Laclede's LAN"
 
 HEALTHCHECK NONE
 
+# Used by SteamCMD; see https://github.com/ValveSoftware/steam-for-linux/issues/10979
+ENV HOME=/app
+
 # Install dependencies
 RUN apt-get update && apt-get install -y `
         bzip2 ca-certificates curl libarchive13 lib32gcc-s1 locales p7zip-full tar unzip wget xz-utils &&`
