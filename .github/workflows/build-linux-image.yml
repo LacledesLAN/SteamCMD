@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.0.0
+        uses: docker/setup-qemu-action@v3.1.0
       - name: Generate ENV Vars
         run: |
           echo "rfc3339_datetime=$(date --rfc-3339=seconds)" >> $GITHUB_ENV
