@@ -1,16 +1,23 @@
 # escape=`
 
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
-LABEL org.opencontainers.image.source https://github.com/LacledesLAN/SteamCMD
-LABEL org.opencontainers.image.title SteamCMD in Docker, for use as a builder image
-LABEL org.opencontainers.image.url https://github.com/LacledesLAN/README.1ST
-LABEL org.opencontainers.image.vendor "Laclede's LAN"
+LABEL `
+    org.opencontainers.image.authors="Laclede's LAN <contact@lacledeslan.com>" `
+    org.opencontainers.image.description="SteamCMD, along with a collection of other tools. It's intended to be used as a builder image in multi-stage builds." `
+    org.opencontainers.image.documentation="https://github.com/LacledesLAN/SteamCMD" `
+    org.opencontainers.image.source="https://hub.docker.com/r/lacledeslan/steamcmd" `
+    org.opencontainers.image.title="SteamCMD in Docker, for use as a builder image." `
+    org.opencontainers.image.url="https://github.com/LacledesLAN/SteamCMD" `
+    org.opencontainers.image.vender="Laclede's LAN"
 
 HEALTHCHECK NONE
 
-# Used by SteamCMD; see https://github.com/ValveSoftware/steam-for-linux/issues/10979
-ENV HOME=/app
+ENV LANG=en_US.UTF-8 `
+    LANGUAGE=en_US.UTF-8 `
+    LC_ALL=en_US.UTF-8 `
+    # $HOME is used by SteamCMD; see https://github.com/ValveSoftware/steam-for-linux/issues/10979
+    HOME=/app
 
 # Install dependencies
 RUN apt-get update && apt-get install -y `
@@ -19,18 +26,15 @@ RUN apt-get update && apt-get install -y `
         locale-gen --no-purge en_US.UTF-8 &&`
     apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
-ENV LANG=en_US.UTF-8 `
-    LANGUAGE=en_US.UTF-8
+COPY /dist/linux /app
 
-# Set up User Enviornment
+# Set up User Environment
 RUN useradd --home /app --gid root --system SteamCMD &&`
-    mkdir -p /app/ll-tests /output &&`
+    mkdir -p /app/ll-tests /output /scratch &&`
     chown SteamCMD:root -R /app &&`
-    chown SteamCMD:root -R /output;
-
-COPY --chown=SteamCMD:root /dist/linux/ll-tests/ /app/ll-tests/
-
-RUN chmod +x /app/ll-tests/*.sh;
+    chown SteamCMD:root -R /output &&`
+    chown SteamCMD:root -R /scratch &&`
+    chmod +x /app/ll-tests/*.sh;
 
 USER SteamCMD
 
