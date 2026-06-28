@@ -21,7 +21,7 @@ ENV LANG=en_US.UTF-8 `
 
 # Install dependencies
 RUN apt-get update && apt-get install -y `
-        bzip2 ca-certificates curl libarchive13 lib32gcc-s1 locales p7zip-full tar unzip wget xz-utils &&`
+        bzip2 ca-certificates curl files libarchive13 lib32gcc-s1 locales p7zip-full tar tmux unzip wget xz-utils &&`
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen &&`
         locale-gen --no-purge en_US.UTF-8 &&`
     apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
